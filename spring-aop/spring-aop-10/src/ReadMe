@@ -1,0 +1,4 @@
+StaticMethodMatcherPointcutAdvisor 代表一个静态方法匹配切面，
+通过StaticMethodMatherPointer 定义切点，通过类过滤和方法名匹配定义切点。
+
+本示例只通过定义FilterAdvice 和在XML中配置 只截取 Waiter#greetTo方法

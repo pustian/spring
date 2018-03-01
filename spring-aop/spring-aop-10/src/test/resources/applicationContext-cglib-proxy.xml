@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans	xmlns="http://www.springframework.org/schema/beans"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:p="http://www.springframework.org/schema/p"
+          xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+
+    <bean id="waiterTarget" class="tian.pusen.service.impl.WaiterImpl" />
+    <bean id="sellerTarget" class="tian.pusen.service.impl.SellerImpl" />
+
+    <bean id="serviceBeforeAdvice" class="tian.pusen.service.advice.ServiceBeforeAdvice" />
+    <bean id="serviceGreetingAdvisor" class="tian.pusen.service.advice.FilterAdvice"
+          p:advice-ref="serviceBeforeAdvice"  />
+   <bean id="parent" abstract="true"
+          class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="serviceGreetingAdvisor"
+          p:proxyTargetClass="true" />
+
+    <bean id="waiter" parent="parent" p:target-ref="waiterTarget" />
+    <bean id="seller" parent="parent" p:target-ref="sellerTarget" />
+
+</beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans	xmlns="http://www.springframework.org/schema/beans"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:p="http://www.springframework.org/schema/p"
+          xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
+
+    <bean id="target" class="tian.pusen.service.impl.WaiterImpl" />
+    <bean id="serviceBeforeAdvice" class="tian.pusen.service.advice.ServiceBeforeAdvice" />
+    <bean id="serviceMethodInterceptor" class="tian.pusen.service.advice.ServiceMethodInterceptor" />
+    <bean id="serviceAfterReturningAdvice" class="tian.pusen.service.advice.ServiceAfterReturningAdvice" />
+    <bean id="serviceThrowAdvice" class="tian.pusen.service.advice.ServiceThrowAdvice" />
+    <bean id="serviceIntroductionInterceptor" class="tian.pusen.service.advice.ServiceIntroductionInterceptor" />
+    <bean id="waiter" class="org.springframework.aop.framework.ProxyFactoryBean"
+        p:interceptorNames="serviceBeforeAdvice,serviceMethodInterceptor,serviceAfterReturningAdvice,serviceThrowAdvice,serviceIntroductionInterceptor"
+        p:target-ref="target"
+        p:proxyTargetClass="true" />
+</beans>
